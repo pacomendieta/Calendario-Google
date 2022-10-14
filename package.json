@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Programa que consume api externo Google Calendar",
   "main": "index.js",
-
   "scripts": {
     "start": "env-cmd -f .env.desarrollo nodemon App.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -28,6 +27,7 @@
     "ejs": "^3.1.8",
     "env-cmd": "^10.1.0",
     "express": "^4.14.0",
+    "express-session": "^1.17.3",
     "moment": "^2.14.1",
     "nodemon": "^2.0.20",
     "passport": "^0.3.2",

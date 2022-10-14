@@ -5,6 +5,18 @@ const  passport = require("passport");
 const GoogleStrategy = require( "passport-google-oauth20" ).Strategy;
 const googleapi = require ("./googleapikey.js"); //clave de api y client id de Google
 
+// Express-Session 
+const session = require('express-session');
+app.use(session( {
+  secret:['fsdfsdfsdafdscc11rr', 'kpjffsffas'],
+  saveUninitialized: false,
+  resave: false
+}))
+
+// configuring passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.get("/", (request,response)=>{
     response.render("index");
 })
@@ -23,14 +35,14 @@ passport.use ( new GoogleStrategy(
         clientSecret: googleapi.client_secret,
         callbackURL: googleapi.redirect_uris[0] ,
 
-    }, function (accessToken, refreshToken, profile, cb) {
+    }, async function (accessToken, refreshToken, profile, email,cb) {
         // Guardar datos de usuario recibidos en Sesion, BD, etc...
-        var user = {
-            accessToken: accessToken,
-            refreshToken: refreshToken,
-            profile: profile
-        };
-        return cb(null, user);
+        //var user = {
+        //    accessToken: accessToken,
+        //    refreshToken: refreshToken,
+        //    profile: profile
+        //};
+        return cb(null, email.id);
     }
 ) );
 //password llama a esta funcion cuando se completa un login de usuario
@@ -45,19 +57,25 @@ passport.deserializeUser( function(user,done) {
     done(null,user); //accion final obligada. null=no hay error.
 })
 // PAGINA DE LOGIN - Proceso de Autenticacion
-app.post("/login", passport.authenticate('google', {
-    // scope=permisos solicitados en Google:
-    scope: [
-         'https://www.googleapis.com/auth/userinfo.profile',  // Google +  ??
-         'https://www.googleapis.com/auth/calendar',  //Google calendar
-         'https://www.googleapis.com/auth/userinfo.email' // ???
-   ]
-} ));
-//PAGINA DE CALLBACK
-app.get("/auth/google/callback",
-    passport.authenticate('google',{ failureRedirect:"/auth/error"}),
-    (request,response)=>{  response.send(request.session) }
+app.get('/google/auth',
+  passport.authenticate('google', {scope: ['profile', 'email']})
 )
+
+
+//PAGINA DE CALLBACK
+app.get('/auth/google/callback',
+  passport.authenticate('google', {failureRedirect: '/'}),
+  (req, res)=>
+  {
+    res.redirect('/success')
+  }
+)
+
+// PAGINA SUCCESS - LOGIN OK
+app.get('/success', (req, res)=>
+{
+  res.send("LOGIN OK. PAGINA SUCCESS")
+})
 
 //Pagina de error de autenticacion
 app.get("/auth/error", (request,response)=>{
