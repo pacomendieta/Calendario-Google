@@ -30,13 +30,13 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 //passPORT llama a esta funcion tras login de usuario
-passport.serializeUser( function(id,done) {
+passport.serializeUser( function(user,done) {
     // user = var user  definido en la funcion pasada a passport.use
-    done(null,id);
+    done(null,user);
 }) 
 //passport llama a esta funcion para localizar datos usuario almacenados en la sesion
-passport.deserializeUser( function(id,done) {
-    done(null,id); //accion final obligada. null=no hay error.
+passport.deserializeUser( function(user,done) {
+    done(null,user); //accion final obligada. null=no hay error.
 })
 
 //console.log("GOOGLE API:", googleapi)
@@ -57,7 +57,7 @@ passport.use ( new GoogleStrategy(
             refreshToken: refreshToken,
             profile: profile
         };
-        return cb(null, email.id);
+        return cb(null, user);
     }
 ) );
 
@@ -78,7 +78,8 @@ app.get('/success', (req, res)=>
 
 // PAGINA DE LOGIN - Proceso de Autenticacion
 app.get('/google/auth',
-  passport.authenticate('google', {scope: ['profile', 'email']})
+  passport.authenticate('google', {
+    scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar']})
 )
 
 //PAGINA DE CALLBACK
