@@ -51,11 +51,14 @@ passport.use ( new GoogleStrategy(
     }, 
     
     async function (accessToken, refreshToken, profile, email,cb) {
-        // Guardar datos de usuario recibidos en Sesion, BD, etc...
+        // Los datos que se meten en el objeto que se retorna (user)
+        // son los que se cogen del perfil de Google y se 
+        // almacenaran en request.session si login ok
         var user = {
-            accessToken: accessToken,
-            refreshToken: refreshToken,
-            profile: profile
+            accessToken: accessToken,   //enviar en peticiones a Google
+            refreshToken: refreshToken, //usar para refrescar accessToken expirado
+            profile: profile,
+            email: email
         };
         return cb(null, user);
     }
@@ -73,7 +76,10 @@ app.get("/", (req,res)=>{
 // PAGINA SUCCESS - LOGIN OK
 app.get('/success', (req, res)=>
 {
-    res.sendFile(path.join(__dirname + '/public/loginok.html'))
+    //res.send(req.session)
+    //res.sendFile(path.join(__dirname + '/public/loginok.html'))
+    //res.render('success',{req:req.passport.user.email.emails[0].value})
+    res.render('success',{ req:req })
 })
 
 // PAGINA DE LOGIN - Proceso de Autenticacion
