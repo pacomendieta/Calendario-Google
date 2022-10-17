@@ -3,7 +3,6 @@
 const express= require('express');
 const passport= require('passport')
 const path= require('path')
-const googleapi = require('./googleapikey') //clave de api y client id de Google
 const GoogleStrategy= require('passport-google-oauth20').Strategy
 
 
@@ -18,10 +17,10 @@ app.use(session( {
 }))
 
 // DATOS DE LA APP REGISTRADOS EN GOOGLE DEVELOPPER CONSOLE
+const googleapi = require('./googleapikey') //clave de api y client id de Google
 CLIENT_ID=googleapi.client_id
 CLIENT_SECRET=googleapi.client_secret
 CALLBACK_URL=googleapi.redirect_uris[0]
-
 
 
 
@@ -46,8 +45,7 @@ passport.use ( new GoogleStrategy(
     {
         clientID: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
-        callbackURL: CALLBACK_URL
-    
+        callbackURL: CALLBACK_URL 
     }, 
     
     async function (accessToken, refreshToken, profile, email,cb) {
