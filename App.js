@@ -101,6 +101,16 @@ app.get('/auth/google/callback',
   }
 )
 
+app.get('/addevent', (req, res)=>
+{
+    if (! isUserLogged(req,res)) res.redirect('/')
+    res.render('addEvento', { calendario:req.session.passport.user.email.emails[0].value })
+    
+})
+app.post('/addevent', (req,res)=>{
+    res.send("Añadir Evento a Google Calendar")
+})
+
 //funcion isUserLogged()
 const isUserLogged=(req,res)=>{
     return typeof req.session.passport !== "undefined" && req.session.passport.user

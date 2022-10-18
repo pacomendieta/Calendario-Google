@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Añadir Evento</h1>
+    <h2>Calendario: <%=calendario %></h2>
+    <form action="/addevent" method="post" style="display:flex;flex-direction: 
+    column">
+        <input name='summary' type="text" placeholder="Resumen" required />
+        <textarea name='description' placeholder="Descripcion" required></textarea>
+        <div>
+            <label>Inicio: </label>
+            <input name='start' type="datetime-local" placeholder="inicio" required />
+        </div>
+        <div>
+            <label >Fin: &nbsp;&nbsp;&nbsp; </label>
+            <input name='end' type="datetime-local" placeholder="fin" required />
+        </div>
+        <input type="submit" value="Enviar"></input>
+    </form>
+</body>
+</html>
