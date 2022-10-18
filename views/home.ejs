@@ -21,6 +21,9 @@
         <form action="/logout" method="post">
             <input type="submit" value="Logout" class="btn btn-success" />
         </form>
+        <h2>Datos de Usuario: </h2>
+        <%= JSON.stringify(data,null,'\n✔️') %>
+
     <% } %>
     
 </body>

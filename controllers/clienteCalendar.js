@@ -7,7 +7,8 @@ let restler = require("restler")  // libreria node utilidades cliente REST ??
 // calendarID  = ID del calendario en Google. El principal tiene id="primary"
 class Evento {
     constructor( accessToken, calendarID="primary") {
-        this.destinationURL = 'https://www.googleapis.com/calendar/v3/calendars/' + calendarID
+        this.calendarURL = 'https://www.googleapis.com/calendar/v3/calendars/' + calendarID
+        this.eventsURL   = this.calendarURL + '/events/'
         this.accessToken=accessToken;
         this.calendarID=calendarID
 
@@ -15,7 +16,7 @@ class Evento {
 
     // all(): lee los eventos del calendario y al terminar llama a callback() 
     all (callback) {
-        restler.get( this.destinationURL, this.defaultInfo() ) 
+        restler.get( this.eventsURL, this.defaultInfo() ) 
         .on ("complete", callback)
     }
 
