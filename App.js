@@ -62,22 +62,22 @@ passport.use ( new GoogleStrategy(
     }
 ) );
 
-// HOME PAGE
+// INDEX PAGE  
 app.get("/", (req,res)=>{
-   res.render("index");
+    res.render('index', {req,res,islogged:isUserLogged(req,res)})
+    //paginaHome.show({req,res,islogged:isUserLogged(req,res)})
    //res.sendFile(path.join(__dirname + '/public/index.html'))
 })
 
 
+const paginaHome = require('./controllers/home')
 
-
-// PAGINA SUCCESS - LOGIN OK
-app.get('/success', (req, res)=>
+// PAGINA HOME  / LOGGED USER 
+app.get('/home', (req, res)=>
 {
-    //res.send(req.session)
-    //res.sendFile(path.join(__dirname + '/public/loginok.html'))
-    //res.render('success',{req:req.passport.user.email.emails[0].value})
-    res.render('success',{ req:req })
+    if (! isUserLogged(req,res)) res.redirect('/')
+    paginaHome.show( {req,res,islogged:true} )
+    
 })
 
 // PAGINA DE LOGIN - Proceso de Autenticacion
@@ -86,14 +86,26 @@ app.get('/google/auth',
     scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar']})
 )
 
+// PAGINA DE LOGOUT
+app.post('/logout', (req,res)=>{
+    if ( isUserLogged(req,res) ) req.session.passport.user= null;
+    res.redirect('/')
+})
+
 //PAGINA DE CALLBACK
 app.get('/auth/google/callback',
   passport.authenticate('google', {failureRedirect: '/'}),
   (req, res)=>
   {
-    res.redirect('/success')
+    res.redirect('/home')
   }
 )
+
+//funcion isUserLogged()
+const isUserLogged=(req,res)=>{
+    return typeof req.session.passport !== "undefined" && req.session.passport.user
+}
+
 
 // running server
 app.listen(process.env.puerto, ()=>{

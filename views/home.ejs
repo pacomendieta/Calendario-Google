@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 </head>
 <body>
-    <h1>INDEX <h1>
+    <h1>HOME</h1>
     <% if ( !islogged ) { %>
         <form action="/google/auth" method="get">
             <input type="submit" value="Login con Google" class="btn btn-success" />
@@ -18,6 +18,9 @@
         <h2>Usuario Logado</h2>
         <p>Email: <%= req.session.passport? req.session.passport.user.email.emails[0].value: '-' %></p> 
         <p>Nombre:<%= req.session.passport? req.session.passport.user.email.displayName:'-' %></p> 
+        <form action="/logout" method="post">
+            <input type="submit" value="Logout" class="btn btn-success" />
+        </form>
     <% } %>
     
 </body>
