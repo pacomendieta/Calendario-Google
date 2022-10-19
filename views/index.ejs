@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/Tema.css"/>
     <script src="/js/cargadorhtml.js" ></script>
+    <script src="/js/darkmode.js"></script>
 </head>
-<body>
-    <h1>pag. INDEX </h1>
+<body class="temaoscuro">
     <nav w3-include-html="/html/cabecera.html"></nav>
-
+    <h1>pag. INDEX </h1>
     <% if ( !islogged ) { %>
         <form action="/google/auth" method="get">
             <input type="submit" value="Login con Google" class="btn btn-success" />

@@ -148,7 +148,7 @@ const isUserLogged=(req,res)=>{
 //Servidor ficheros estaticos
 app.use('/html',express.static('public'));
 app.use('/js',express.static('public'));
-
+app.use('/css',express.static('src/css'));
 
 
 // running server
