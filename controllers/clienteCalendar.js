@@ -29,5 +29,14 @@ class Evento {
             }
         }
     }
+
+    create( eventData, callback ) {
+        let eventDataString = JSON.stringify(eventData) // restler necesita json en string
+        let data = { "data": eventDataString}
+        // options que se manda a Google debe incluir los enventData y las headers en el mismo objeto. Así que se combinan los dos objetos de datos y cabeceras:
+        var options = Object.assign( {}, this.defaultInfo(), data )
+        restler.post( this.eventsURL, options, this.defaultInfo() ) 
+        .on ("complete", callback)
+    }
 }
 module.exports=Evento;

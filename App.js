@@ -4,7 +4,8 @@ const express= require('express');
 const passport= require('passport')
 const path= require('path')
 const GoogleStrategy= require('passport-google-oauth20').Strategy
-
+const bodyParser = require("body-parser")
+const moment = require("moment")   // convertidor de fechas
 
 var app=express();
 
@@ -27,6 +28,8 @@ CALLBACK_URL=googleapi.redirect_uris[0]
 // configuring passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
+
+
 
 //passPORT llama a esta funcion tras login de usuario
 passport.serializeUser( function(user,done) {
@@ -70,7 +73,8 @@ app.get("/", (req,res)=>{
 })
 
 
-const paginaHome = require('./controllers/home')
+const paginaHome = require('./controllers/home');
+const Evento = require('./controllers/clienteCalendar');
 
 // PAGINA HOME  / LOGGED USER 
 app.get('/home', (req, res)=>
@@ -86,11 +90,20 @@ app.get('/google/auth',
     scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar']})
 )
 
+
+
+//body parser para recibir campos de formularios html en el req.body
+app.use (bodyParser.urlencoded( {extended:true}));
+app.use (bodyParser.json());  // no hace falta si no se usa formato json
+
+
+
 // PAGINA DE LOGOUT
 app.post('/logout', (req,res)=>{
     if ( isUserLogged(req,res) ) req.session.passport.user= null;
     res.redirect('/')
 })
+
 
 //PAGINA DE CALLBACK
 app.get('/auth/google/callback',
@@ -103,18 +116,39 @@ app.get('/auth/google/callback',
 
 app.get('/addevent', (req, res)=>
 {
-    if (! isUserLogged(req,res)) res.redirect('/')
+    if ( !isUserLogged(req,res)) res.redirect('/')
+    else 
     res.render('addEvento', { calendario:req.session.passport.user.email.emails[0].value })
     
 })
 app.post('/addevent', (req,res)=>{
-    res.send("Añadir Evento a Google Calendar")
+    let datosevento = {
+        "summary": req.body.summary,
+        "description": req.body.description,
+        "start": {
+            "dateTime": moment(req.body.start).toISOString()
+        },
+        "end": {
+            "dateTime":moment(req.body.end).toISOString()
+        }   
+    }
+    console.log("Evento se va a añadir en Google: ", datosevento)
+    let newevento = new Evento(req.session.passport.user.accessToken);
+    newevento.create( datosevento, (evento)=>{
+        res.send(evento)
+    })
 })
 
 //funcion isUserLogged()
 const isUserLogged=(req,res)=>{
     return typeof req.session.passport !== "undefined" && req.session.passport.user
 }
+
+
+//Servidor ficheros estaticos
+app.use('/html',express.static('public'));
+app.use('/js',express.static('public'));
+
 
 
 // running server

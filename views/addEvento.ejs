@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="/js/cargadorhtml.js" ></script>
 </head>
 <body>
     <h1>Añadir Evento</h1>
+    <nav w3-include-html="/html/cabecera.html"></nav>
     <h2>Calendario: <%=calendario %></h2>
     <form action="/addevent" method="post" style="display:flex;flex-direction: 
     column">
@@ -23,5 +25,6 @@
         </div>
         <input type="submit" value="Enviar"></input>
     </form>
+    <script>includeHTML()</script>
 </body>
 </html>
