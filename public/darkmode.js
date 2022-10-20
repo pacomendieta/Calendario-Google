@@ -3,8 +3,7 @@
 // Aplica-quita la clase .temaoscuro al body
 
 
-
-export default function bindEventos(){
+function bindEventos(){
     // boton (checklist+label) que cambia Dark Light Mode
     console.log("Ejecutando bindEventos");
     var x = document.querySelector(".botontoggle");
