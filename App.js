@@ -80,6 +80,7 @@ const Evento = require('./controllers/clienteCalendar');
 app.get('/home', (req, res)=>
 {
     if (! isUserLogged(req,res)) res.redirect('/')
+    else 
     paginaHome.show( {req,res,islogged:true} )
     
 })

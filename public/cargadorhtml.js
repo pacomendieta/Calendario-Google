@@ -1,7 +1,7 @@
 //Usar en una pagina hmtl 
 //Carga/include los archivos html indicados en las propiedades "w3-include-html='archivo.html' "
 // parametro inicio = funcion a ejecutar por ejemplo para hacer bind de eventos sobre alguno de los elementos html cargados, ya que se cargan via ajax y el windows.onload se ejecuta antes de terminar el ajax (en chrome no hay problema)
-async function includeHTML( inicio=null ) {
+export function includeHTML( inicio=null ) {
   var z, i, elmnt, file, xhttp;
   /* Loop through a collection of all HTML elements: */
   z = document.getElementsByTagName("*");

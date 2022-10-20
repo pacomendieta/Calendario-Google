@@ -40,6 +40,18 @@ body input, body textarea, html input, html textarea {
   background-color: var(--fondoinput);
   accent-color: var(--acento);
 }
+body ::-moz-placeholder, html ::-moz-placeholder {
+  color: red;
+  opacity: 1;
+}
+body :-ms-input-placeholder, html :-ms-input-placeholder {
+  color: red;
+  opacity: 1;
+}
+body ::placeholder, html ::placeholder {
+  color: red;
+  opacity: 1;
+}
 body button, body input[type=submit], html button, html input[type=submit] {
   background-color: var(--colorbotones);
 }

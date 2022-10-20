@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="/css/addEvento.css"/>
-    <script src="/js/cargadorhtml.js" ></script>
-    <script src="/js/darkmode.js"></script>
 </head>
 <body>
     <div class="addEventoContainer">
@@ -17,7 +15,7 @@
         <h2>Calendario: <%=calendario %></h2>
         <form action="/addevent" method="post" style="display:flex;flex-direction: 
         column">
-            <input name='summary' type="text" placeholder="Resumen" required />
+            <input  name='summary' type="text" placeholder="Resumen" required />
             <textarea name='description' placeholder="Descripcion" required></textarea>
             <div>
                 <label>Inicio: </label>
@@ -30,6 +28,23 @@
             <input type="submit" value="Enviar"></input>
         </form>
     </div>
-
+    <div class="descripcionPagina">
+        <pre>
+            View addEvento.ejs
+            Formulario envia datos post a /addevent
+            Controlador en App.js 
+                /addevent usa clase Event () cliente Google API Calendar
+                Event.Create (controllers/clienteCalendar)
+                     restler.post( URL, JWT, datos ) llamada al API crear Evento
+                     .on ('complete') retorna respuesta: evento creado en Google Calendar
+                Mostrar evevento
+        </pre>
+    </div>
+    <script src="/js/cabecera.js" type="module" ></script>
 </body>
 </html>
+<style>
+    input {
+        background-color:beige;
+    }
+</style>
