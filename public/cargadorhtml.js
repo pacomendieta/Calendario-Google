@@ -1,6 +1,7 @@
 //Usar en una pagina hmtl 
 //Carga/include los archivos html indicados en las propiedades "w3-include-html='archivo.html' "
-function includeHTML() {
+// parametro inicio = funcion a ejecutar por ejemplo para hacer bind de eventos sobre alguno de los elementos html cargados, ya que se cargan via ajax y el windows.onload se ejecuta antes de terminar el ajax (en chrome no hay problema)
+async function includeHTML( inicio=null ) {
   var z, i, elmnt, file, xhttp;
   /* Loop through a collection of all HTML elements: */
   z = document.getElementsByTagName("*");
@@ -17,12 +18,14 @@ function includeHTML() {
           if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
           /* Remove the attribute, and call this function once more: */
           elmnt.removeAttribute("w3-include-html");
+          if (inicio) inicio(); // Ejecutar funcion argumento, al terminar de cargar
           includeHTML();
         }
       }
       xhttp.open("GET", file, true);
       xhttp.send();
       /* Exit the function: */
+
       return;
     }
   }

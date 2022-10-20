@@ -3,7 +3,7 @@
 
 body, html {
     margin: 0;
-    padding: 0;
+    padding: 5px;
     box-sizing: border-box;  //Indicar que el ancho 100% debe incluir paddings
 
     &:not(.temaoscuro) {
@@ -13,7 +13,9 @@ body, html {
         --colorbotones:rgb(213, 72, 7);
         --colorswitch: rgb(72, 110, 67);
         --fondoheader: rgb(200,200,200);
-        --colorlink: rgb(213, 72, 7);
+        --colorlink: rgb(134, 43, 1);
+        --acento   :   rgb(240, 244, 30);
+        --fondoinput:  rgb(196, 194, 194);
     }
     &.temaoscuro {
         background-color: colores.$negro;
@@ -25,6 +27,29 @@ body, html {
         --colorswitch: rgb(134, 233, 121);
         --fondoheader: rgb(60,60,60);
         --colorlink: rgb(227, 132, 117);
+        --acento   :   rgb(240, 244, 30);
+        --fondoinput:  rgb(78, 78, 78);
+    }
+    a {
+        color: var(--colorlink);
+        accent-color: var(--acento);
+    }
+    h1 {
+        color: var(--colorh1);
+        background-color:  var(--fondoh1);
+        margin-top: 0px;
+    }
+    input, textarea {
+        background-color: var(--fondoinput);
+        accent-color: var(--acento);
+    }
+    ::placeholder {
+        color: red;
+        opacity: 1;
+    }
+
+    button, input[type='submit'] {
+        background-color: var(--colorbotones);
     }
 };
 

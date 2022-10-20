@@ -8,10 +8,11 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/Tema.css"/>
     <script src="/js/cargadorhtml.js" ></script>
-    <script src="/js/darkmode.js"></script>
+    <script src="/js/darkmode.js" type="module" ></script>
 </head>
 <body class="temaoscuro">
     <nav w3-include-html="/html/cabecera.html"></nav>
+    <script>includeHTML( window.bindEventos )</script>
     <h1>pag. INDEX </h1>
     <% if ( !islogged ) { %>
         <form action="/google/auth" method="get">
@@ -23,7 +24,8 @@
         <p>Email: <%= req.session.passport? req.session.passport.user.email.emails[0].value: '-' %></p> 
         <p>Nombre:<%= req.session.passport? req.session.passport.user.email.displayName:'-' %></p> 
     <% } %>
-    <script>includeHTML()</script>
+
 </body>
 </html>
+
 

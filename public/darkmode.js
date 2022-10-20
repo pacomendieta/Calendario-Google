@@ -2,14 +2,15 @@
 // Graba/lee el ultimo valor en localstorage/fm-darkmode 
 // Aplica-quita la clase .temaoscuro al body
 
-window.onload=function() {
-    bindEventos();
-    leerThemeMode();
-}
 
-function bindEventos(){
+
+export default function bindEventos(){
     // boton (checklist+label) que cambia Dark Light Mode
-    document.getElementById("botontoggle").addEventListener("change", toggleDarkMode);
+    console.log("Ejecutando bindEventos");
+    var x = document.querySelector(".botontoggle");
+    if (x)
+        x.addEventListener("change", toggleDarkMode);
+
 }
 
 // Cambiar Dark/Light Mode cambiando una clase a <body> lo cual provoca cambios de variables de color en el css
@@ -46,5 +47,10 @@ function guardarThemeMode( modo ){
         window.localStorage.setItem("fm-darkmode",modo);
 }
 
+function onload() {
+    leerThemeMode();
+    //bindEventos();
+}
+window.addEventListener('load', onload);
 
 

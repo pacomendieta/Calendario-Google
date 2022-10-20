@@ -67,7 +67,7 @@ passport.use ( new GoogleStrategy(
 
 // INDEX PAGE  
 app.get("/", (req,res)=>{
-    res.render('index', {req,res,islogged:isUserLogged(req,res)})
+    res.render('pag-index', {req,res,islogged:isUserLogged(req,res)})
     //paginaHome.show({req,res,islogged:isUserLogged(req,res)})
    //res.sendFile(path.join(__dirname + '/public/index.html'))
 })
