@@ -117,23 +117,20 @@ button {
   font-size: calc(var(--tamanioboton) * 0.8);
 }
 
-.addEventoContainer {
-  text-align: center;
-}
-.addEventoContainer form {
-  text-align: left;
+div.clienteApi .formulario {
   width: 50vw;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
-.addEventoContainer form input, .addEventoContainer form textarea {
-  margin-left: 0px;
+div.clienteApi .formulario form input {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
 }
-
-.descripcionPagina {
+div.clienteApi .descripcionPagina {
   margin-top: 1em;
   padding: 1em;
 }
-.descripcionPagina pre {
+div.clienteApi .descripcionPagina pre {
   font-size: 1.5em;
   color: var(--colortexto1);
   background-color: var(--fondoinput);

@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/Tema.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/pag-index.css"/>
+
 </head>
 <body class="temaoscuro">
     <nav w3-include-html="/html/cabecera.html"></nav>
@@ -22,6 +23,18 @@
         <p>Email: <%= req.session.passport? req.session.passport.user.email.emails[0].value: '-' %></p> 
         <p>Nombre:<%= req.session.passport? req.session.passport.user.email.displayName:'-' %></p> 
     <% } %>
+    <div class="descripcionPagina">
+    <pre>
+        FUNCIONALIDAD DE LA PAGINA
+        View pag-index.ejs
+        Cabecera:   seccion nav htm-include="cabecera.html"   include cabecera.js 
+        [Boton Login con Google] --> get /google/auth  --> autenticacion en Google con passport.authenticate('google',...)
+              retorno a CallBack configurada en Google:  get /auth/google/callback  --> autenticacion en la app con passport.autheticate('google',...) 
+              y redirect a /home si OK
+    </pre>
+    </div>
+
+
     <script src="/js/cabecera.js" type="module" ></script>
 </body>
 </html>

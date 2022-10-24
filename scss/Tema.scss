@@ -39,7 +39,7 @@ body, html {
         background-color:  var(--fondoh1);
         margin-top: 0px;
     }
-    input:not(type='submit'), textarea {
+    input:not([type='submit']), textarea {
         background-color: var(--fondoinput);
         accent-color: var(--acento);
     }

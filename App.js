@@ -106,7 +106,7 @@ app.post('/logout', (req,res)=>{
 })
 
 
-//PAGINA DE CALLBACK
+//PAGINA DE CALLBACK de la Autenticacion en Google
 app.get('/auth/google/callback',
   passport.authenticate('google', {failureRedirect: '/'}),
   (req, res)=>
@@ -144,6 +144,20 @@ app.post('/addevent', (req,res)=>{
 const isUserLogged=(req,res)=>{
     return typeof req.session.passport !== "undefined" && req.session.passport.user
 }
+
+//Pagina Clienteapi
+app.get('/clienteapi', (req, res)=>
+{
+    res.render('clienteApi')
+  
+})
+app.post('/clienteapi/send', (req,res)=>{
+    let datosevento = {
+        "summary": req.body.summary,
+    }
+    console.log("Enviando: ", datosevento)
+    res.redirect('/clienteapi')
+})
 
 
 //Servidor ficheros estaticos

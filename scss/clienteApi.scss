@@ -1,0 +1,29 @@
+@import 'Tema';
+
+div.clienteApi {
+    .formulario {
+        width: 50vw;
+        display:flex;
+        flex-direction: column;
+        form  {
+            input {
+                font-size: 2.5em;
+                margin-bottom: 0.5em;
+            }  
+        }
+        
+    }
+    .descripcionPagina {
+        pre{
+            font-size: 1.5em;
+            color: var(--colortexto1);
+            background-color: var(--fondoinput);        
+        }
+        margin-top: 1em;
+        padding: 1em;
+      
+    }    
+}
+
+
+
