@@ -77,6 +77,7 @@ app.get("/", (req,res)=>{
 const paginaHome = require('./controllers/home');
 const Evento = require('./controllers/clienteCalendar');
 const ClienteAWS = require('./controllers/clienteAWS');
+const { EC2 } = require('aws-sdk');
 
 // PAGINA HOME  / LOGGED USER 
 app.get('/home', (req, res)=>
@@ -147,18 +148,38 @@ const isUserLogged=(req,res)=>{
     return typeof req.session.passport !== "undefined" && req.session.passport.user
 }
 
-//Pagina Clienteapi
+//Pagina Clienteapi ---------------------------------------------------------------
 app.get('/clienteapi', (req, res)=>
 {
     let amazon= new ClienteAWS();
     let credenciales = new AWS.Credentials( amazon.key, amazon.secret);
     console.log("Credenciales:", credenciales);
+    AWS.config.update(
+       { credentials: credenciales, region: 'eu-west-3c' }
+    )
+
+
     //let cliente = new AWS.EC2.Client( {})
+    //console.log("new AWS.EC2............................................")
+    var ec2 = new AWS.EC2()
+    //console.log(".....................................................OK")
+  
+
+    var params = {
+        InstanceIds: [
+           "i-0bad0c4320fc03d6a"
+        ]
+        
+       };
+    ec2.describeAvailabilityZones({}, function(err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response
+    });
+
 
     res.render('clienteAWS', {amazon})
-    
-    
 })
+//----------------------------------------------------------------------------
 app.post('/clienteapi/send', (req,res)=>{
     let datosevento = {
         "summary": req.body.summary,

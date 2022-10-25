@@ -10,7 +10,7 @@
   "author": "F Mendieta",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1238.0",
+    "aws-sdk": "^2.1239.0",
     "body-parser": "^1.15.2",
     "cookie-session": "^2.0.0-aplha.1",
     "ejs": "^3.1.8",
