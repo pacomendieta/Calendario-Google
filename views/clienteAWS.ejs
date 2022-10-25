@@ -11,7 +11,7 @@
     <div class="pagina clienteApi">
         <nav w3-include-html="/html/cabecera.html"></nav>
         <h1>Cliente API</h1>
-    
+        <p><%= amazon.key %> - <%= amazon.secret %></p>
         <div class="formulario">
             <form action="/clienteapi/send" method="post" style="display:flex;flex-direction: column">
                 <input  name='summary' type="text" placeholder="Resumen" required />

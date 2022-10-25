@@ -6,6 +6,7 @@ const path= require('path')
 const GoogleStrategy= require('passport-google-oauth20').Strategy
 const bodyParser = require("body-parser")
 const moment = require("moment")   // convertidor de fechas
+let AWS = require("aws-sdk")  
 
 var app=express();
 
@@ -75,6 +76,7 @@ app.get("/", (req,res)=>{
 
 const paginaHome = require('./controllers/home');
 const Evento = require('./controllers/clienteCalendar');
+const ClienteAWS = require('./controllers/clienteAWS');
 
 // PAGINA HOME  / LOGGED USER 
 app.get('/home', (req, res)=>
@@ -148,8 +150,14 @@ const isUserLogged=(req,res)=>{
 //Pagina Clienteapi
 app.get('/clienteapi', (req, res)=>
 {
-    res.render('clienteApi')
-  
+    let amazon= new ClienteAWS();
+    let credenciales = new AWS.Credentials( amazon.key, amazon.secret);
+    console.log("Credenciales:", credenciales);
+    //let cliente = new AWS.EC2.Client( {})
+
+    res.render('clienteAWS', {amazon})
+    
+    
 })
 app.post('/clienteapi/send', (req,res)=>{
     let datosevento = {
