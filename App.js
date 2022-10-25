@@ -151,8 +151,10 @@ const isUserLogged=(req,res)=>{
 //Pagina Clienteapi ---------------------------------------------------------------
 app.get('/clienteapi', (req, res)=>
 {
-    let amazon= new ClienteAWS();
-    let credenciales = new AWS.Credentials( amazon.key, amazon.secret);
+    let datos={};
+    //let amazon= new ClienteAWS();
+    //let credenciales = new AWS.Credentials( amazon.key, amazon.secret);
+    let credenciales = new AWS.SharedIniFileCredentials({profile: 'default'}); 
     console.log("Credenciales:", credenciales);
     AWS.config.update(
     { 
@@ -177,11 +179,11 @@ app.get('/clienteapi', (req, res)=>
        };
     ec2.describeInstances({}, function(err, data) {
         if (err) console.log(err, err.stack); // an error occurred
-        else     console.log(data);           // successful response
+        else { datos=JSON.stringify(data); console.log(datos);} // successful response
     });
 
 
-    res.render('clienteAWS', {amazon})
+    res.render('clienteAWS', { datos })
 })
 //----------------------------------------------------------------------------
 app.post('/clienteapi/send', (req,res)=>{
