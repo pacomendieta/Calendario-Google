@@ -155,7 +155,11 @@ app.get('/clienteapi', (req, res)=>
     let credenciales = new AWS.Credentials( amazon.key, amazon.secret);
     console.log("Credenciales:", credenciales);
     AWS.config.update(
-       { credentials: credenciales, region: 'eu-west-3c' }
+    { 
+        credentials: credenciales, 
+        region: 'eu-west-3',
+        //endpoint:'ec2.eu-west-3.amazonaws.com'
+    }
     )
 
 
@@ -171,7 +175,7 @@ app.get('/clienteapi', (req, res)=>
         ]
         
        };
-    ec2.describeAvailabilityZones({}, function(err, data) {
+    ec2.describeInstances({}, function(err, data) {
         if (err) console.log(err, err.stack); // an error occurred
         else     console.log(data);           // successful response
     });
